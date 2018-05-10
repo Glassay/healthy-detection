@@ -1,29 +1,44 @@
 
 import { TabNavigator } from 'react-navigation';
 
-import Bookcase from './pages/bookcase/index';
-import Classification from './pages/classification/index';
-import Mine from './pages/mine/index';
+import MineScreen from './pages/MinePage';
+import HomeScreen from './pages/HomePage';
+import FontsSize from './res/fonts/size';
+import Colors from './res/Colors/index';
+import Styles from './res/Styles';
 
-const Tabs = TabNavigator({
-  Bookcase: {
-    screen: Bookcase,
-  },
-  Classification: {
-    screen: Classification,
+const BasicApp = TabNavigator({
+  Home: {
+    screen: HomeScreen,
   },
   Mine: {
-    screen: Mine,
+    screen: MineScreen,
   },
 }, {
-  initialRouteName: 'Bookcase',
+  initialRouteName: 'Home',
   tabBarPosition: 'bottom',
   animationEnabled: true,
   lazy: true,
+  tabBarOptions: {
+    showIcon: true,
+    activeTintColor: Colors.white,
+    inactiveTintColor: Colors.gray3,
+    pressOpacity: 4,
+    labelStyle: {
+      fontSize: FontsSize.tiny,
+    },
+    style: {
+      backgroundColor: Colors.primary,
+      height: Styles.Height(100),
+    },
+    indicatorStyle: {
+      height: 0,
+    },
+  },
 });
 
 const Navigations = {
-  Main: { screen: Tabs },
+  Main: { screen: BasicApp },
 };
 
 export default Navigations;
