@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import FontsSize from '../../res/fonts/size';
 import Colors from '../../res/Colors/index';
 import IconsSize from '../../res/Icons/size';
+import Styles from '../../res/Styles';
 
 class HomePage extends Component {
   static navigationOptions = {
@@ -19,6 +20,7 @@ class HomePage extends Component {
           color: Colors.white,
           alignSelf: 'center',
           fontSize: FontsSize.large,
+          marginLeft: Styles.Width(280),
         }}
       >我的
       </Text>
@@ -38,14 +40,11 @@ class HomePage extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.topBar}>
           <View>
             <Text style={styles.topBarTitle}>
               哈哈
-            </Text>
-            <Text>
-              严天泽电子书阅读app，简称：严阅。
             </Text>
           </View>
         </View>
@@ -55,6 +54,9 @@ class HomePage extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+  },
   topBar: {
     marginTop: 30,
     paddingBottom: 30,

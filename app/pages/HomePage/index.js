@@ -21,8 +21,8 @@ class HomePage extends Component {
       <Text
         style={{
           color: Colors.white,
-          alignSelf: 'center',
           fontSize: FontsSize.large,
+          marginLeft: Styles.Width(240),
         }}
       >掌上体检
       </Text>
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     padding: Styles.Height(40),
+    height: Styles.ScreenHeight,
   },
   topBar: {
     marginTop: 30,
