@@ -49,7 +49,6 @@ class HomePage extends Component {
             </Text>
           </View>
         </View>
-        {/* <Book item={this.props.Book[0]} /> */}
       </View>
     );
   }
