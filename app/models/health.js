@@ -2,7 +2,7 @@
 import { getResults } from '../services/health';
 
 export default {
-  namespace: 'users',
+  namespace: 'health',
 
   state: {
     healthInfo: ''
@@ -21,7 +21,7 @@ export default {
 
   reducers: {
     updateResult(state , { payload }) {
-      return request({
+      return({
         ...state,
         healthInfo: payload
       })

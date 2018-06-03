@@ -5,6 +5,9 @@ import {
   FlatList,
   StyleSheet
 } from 'react-native';
+import {
+  Card
+} from 'react-native-elements';
 import { connect } from 'dva';
 
 import FontsSize from '../../res/fonts/size';
@@ -31,18 +34,29 @@ class Archives extends React.Component {
       borderBottomWidth: 0,
     },
   }
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'health/getResult'
+    })
+  }
+
+  _keyExtractor= (item, index) => {
+    return index + item;
+  }
   render() {
     const { healthInfo } = this.props;
+    console.log('health', healthInfo);
     return(
       <FlatList
         style={styles.container}
+        keyExtractor={this._keyExtractor}
         showsVerticalScrollIndicator={false}
         keyExtractor={this._keyExtractor}
-        // data={unhealthInfo}
+        data={healthInfo}
         renderItem={({ item }) => (
-          <Card title='2018-06-02'>
-            <Text style={styles.grade}>60分</Text>
-            <Text style={styles.content}>健康状况良好</Text>
+          <Card title={item.Created}>
+            <Text style={styles.grade}>{item.score}分</Text>
+            <Text style={styles.content}>{item.result}</Text>
           </Card>
         )}
       />
@@ -56,7 +70,7 @@ const styles = StyleSheet.create({
   },
 
   grade: {
-    fontWeight: 50,
+    fontWeight: 80,
     fontWeight: FontsWeight.bold,
     color: Colors.primary
   },
