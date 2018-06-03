@@ -10,8 +10,9 @@ import {
   FormValidationMessage,
   Badge
 } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
+import { connect } from 'dva';
 
 import FontsSize from '../../res/fonts/size';
 import FontsWeight from '../../res/fonts/weight';
@@ -45,73 +46,108 @@ class HomePage extends Component {
       />
     ),
   }
+
   state = {
     buttonName: '注册',
-    userName: '',
-    password: ''
+    name: '',
+    sex: '',
+    age: '',
+    high: '',
+    weight: '',
+    isEdit: true
   }
+
+  onEdit = () => {
+    this.setState({
+      isEdit: true
+    })
+  }
+
+  onSave = () => {
+    this.props.dispatch({
+      type: 'users/uploadUser',
+      payload: {
+        name: this.state.name,
+        sex: this.state.sex,
+        age: +this.state.age,
+        high: +this.state.high,
+        weight: +this.state.weight
+      }
+    })
+    this.setState({
+      isEdit: false
+    })
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.inputArea}>
-          <FormLabel>姓名</FormLabel>
-          <FormInput
-            disabled={false}
-            value={this.state.userName}
-            onChangeText={(userName) => {this.setState({ userName })}}
-          />
-          <FormLabel>性别</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <FormLabel>年龄</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <FormLabel>身高</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <FormLabel>体重</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <View style={styles.buttonArea}>
-            <Badge
-              value='修改'
-              containerStyle={{
-                backgroundColor: Colors.primary,
-                width: Styles.Width(200),
-                height: Styles.Height(70),
-                marginVertical: Styles.Height(40),
-              }}
-              textStyle={{
-                color: Colors.white,
-                fontWeight: FontsWeight.bold
-              }}
+      <KeyboardAwareScrollView>
+        <View style={styles.container}>
+          <View style={styles.inputArea}>
+            <FormLabel>姓名</FormLabel>
+            <FormInput
+              editable={this.state.isEdit}
+              value={this.state.userName}
+              onChangeText={(name) => {this.setState({ name })}}
             />
-            <Badge
-              onPress={this.userLogin}
-              value='保存'
-              containerStyle={{
-                backgroundColor: Colors.primary,
-                width: Styles.Width(200),
-                height: Styles.Height(70),
-                marginVertical: Styles.Height(40),
-                marginLeft: Styles.Width(200)
-              }}
-              textStyle={{
-                color: Colors.white,
-                fontWeight: FontsWeight.bold
-              }}
+            <FormLabel>性别</FormLabel>
+            <FormInput
+              editable={this.state.isEdit}
+              value={this.state.password}
+              onChangeText={(sex) => {this.setState({ sex })}}
             />
+            <FormLabel>年龄</FormLabel>
+            <FormInput
+              editable={this.state.isEdit}
+              value={this.state.password}
+              onChangeText={(age) => {this.setState({ age })}}
+            />
+            <FormLabel>身高</FormLabel>
+            <FormInput
+              editable={this.state.isEdit}
+              value={this.state.password}
+              onChangeText={(height) => {this.setState({ height })}}
+            />
+            <FormLabel>体重</FormLabel>
+            <FormInput
+              editable={this.state.isEdit}
+              value={this.state.password}
+              onChangeText={(weight) => {this.setState({ weight })}}
+            />
+            <View style={styles.buttonArea}>
+              <Badge
+                onPress={this.onEdit}
+                value='修改'
+                containerStyle={{
+                  backgroundColor: Colors.primary,
+                  width: Styles.Width(200),
+                  height: Styles.Height(70),
+                  marginVertical: Styles.Height(20),
+                }}
+                textStyle={{
+                  color: Colors.white,
+                  fontWeight: FontsWeight.bold
+                }}
+              />
+              <Badge
+                onPress={this.onSave}
+                value='保存'
+                containerStyle={{
+                  backgroundColor: Colors.primary,
+                  width: Styles.Width(200),
+                  height: Styles.Height(70),
+                  marginVertical: Styles.Height(20),
+                  marginLeft: Styles.Width(200)
+                }}
+                textStyle={{
+                  color: Colors.white,
+                  fontWeight: FontsWeight.bold
+                }}
+              />
+            </View>
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -143,4 +179,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomePage;
+export default connect(({ users }) => ({ ...users}))(HomePage);

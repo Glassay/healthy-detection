@@ -8,12 +8,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "antd-mobile": "^2.1.11",
+    "@blankapp/ui": "^1.0.6",
     "dva": "^2.2.3",
     "react": "16.3.1",
     "react-dom": "^16.4.0",
     "react-native": "0.55.3",
     "react-native-elements": "^0.19.1",
+    "react-native-keyboard-aware-scroll-view": "^0.5.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11",
     "react-navigation-redux-helpers": "^1.0.5",
