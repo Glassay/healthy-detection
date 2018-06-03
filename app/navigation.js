@@ -2,6 +2,7 @@
 import { TabNavigator } from 'react-navigation';
 
 import MineScreen from './pages/MinePage';
+// import LoginScreen from './pages/LoginPage';
 import HomeScreen from './pages/HomePage';
 import PreTestScreen from './pages/PreTest';
 import QuestionScreen from './pages/Question';
@@ -44,6 +45,7 @@ const BasicApp = TabNavigator({
 });
 
 const Navigations = {
+  // Login: { screen: LoginScreen },
   Main: { screen: BasicApp },
   PreTest: {
     screen: PreTestScreen,

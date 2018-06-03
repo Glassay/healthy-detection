@@ -1,88 +1,65 @@
-import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
   View,
+  StyleSheet,
+  Text
 } from 'react-native';
+import { connect } from 'dva';
 import {
   FormLabel,
   FormInput,
   FormValidationMessage,
   Badge
 } from 'react-native-elements';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { connect } from 'react-redux';
+import React from 'react';
 
+import Navigator, { dispatcher } from '../../helper/navigator';
+import Colors from '../../res/Colors';
 import FontsSize from '../../res/fonts/size';
 import FontsWeight from '../../res/fonts/weight';
-import Colors from '../../res/Colors/index';
-import IconsSize from '../../res/Icons/size';
 import Styles from '../../res/Styles';
+import { ConnectedRouter } from 'react-router-redux';
 
-class HomePage extends Component {
+class LoginPage extends React.Component {
   static navigationOptions = {
     headerTitle: (
       <Text
         style={{
           color: Colors.white,
-          alignSelf: 'center',
           fontSize: FontsSize.large,
-          marginLeft: Styles.Width(280),
+          marginLeft: Styles.Width(240),
         }}
-      >我的
+      >登录页面
       </Text>
     ),
     headerStyle: {
       backgroundColor: Colors.primary,
       borderBottomWidth: 0,
     },
-    tabBarLabel: '我的',
-    tabBarIcon: ({ focused }) => (
-      <Ionicons
-        name={focused ? 'ios-person' : 'ios-person-outline'}
-        size={IconsSize.xlarge}
-        style={{ color: Colors.gray3 }}
-      />
-    ),
   }
   state = {
     buttonName: '注册',
     userName: '',
     password: ''
   }
+
   render() {
-    return (
+    const dispatch = dispatcher(this.props);
+    return(
       <View style={styles.container}>
         <View style={styles.inputArea}>
-          <FormLabel>姓名</FormLabel>
+          <FormLabel>手机号</FormLabel>
           <FormInput
-            disabled={false}
             value={this.state.userName}
             onChangeText={(userName) => {this.setState({ userName })}}
           />
-          <FormLabel>性别</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <FormLabel>年龄</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <FormLabel>身高</FormLabel>
-          <FormInput
-            value={this.state.password}
-            onChangeText={(password) => {this.setState({ password })}}
-          />
-          <FormLabel>体重</FormLabel>
+          <FormLabel>密码</FormLabel>
           <FormInput
             value={this.state.password}
             onChangeText={(password) => {this.setState({ password })}}
           />
           <View style={styles.buttonArea}>
             <Badge
-              value='修改'
+              value='注册'
               containerStyle={{
                 backgroundColor: Colors.primary,
                 width: Styles.Width(200),
@@ -96,7 +73,7 @@ class HomePage extends Component {
             />
             <Badge
               onPress={this.userLogin}
-              value='保存'
+              value='登录'
               containerStyle={{
                 backgroundColor: Colors.primary,
                 width: Styles.Width(200),
@@ -121,18 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     height: Styles.ScreenHeight
   },
-  topBar: {
-    marginTop: 30,
-    paddingBottom: 30,
-    paddingLeft: 20,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    flexDirection: "row",
-  },
 
-  topBarTitle: {
-    fontSize: 30,
-    color: "black",
+  inputArea: {
+    marginTop: Styles.Height(200),
   },
 
   buttonArea: {
@@ -141,6 +109,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   }
-});
+})
 
-export default HomePage;
+export default connect(({ users }) => ({ ...users }))(LoginPage)

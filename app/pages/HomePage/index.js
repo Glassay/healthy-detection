@@ -8,7 +8,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 
-import Navigator, { dispatcher } from '../../helper/navigator'
+import Navigator, { dispatcher } from '../../helper/navigator';
 import FontsSize from '../../res/fonts/size';
 import Colors from '../../res/Colors/index';
 import IconsSize from '../../res/Icons/size';
