@@ -11,6 +11,7 @@ import {
 import {
   Badge
 } from 'react-native-elements';
+import { connect } from 'dva';
 import {
   ThemeProvider,
   Screen,
@@ -29,7 +30,7 @@ import StairTitle from '../../components/StairTitle';
 import SecondTitle from '../../components/SecondTitle';
 import FontsWeight from '../../res/fonts/weight';
 
-export default class Question extends React.Component {
+class Question extends React.Component {
   static navigationOptions = {
     headerTitle: (
       <Text
@@ -57,6 +58,23 @@ export default class Question extends React.Component {
     answer8: '',
     answer9: '',
     answer10: ''
+  }
+  handleSubmit = () => {
+    this.props.dispatch({
+      type: 'question/uploadResult',
+      payload: {
+        answer1: +this.state.answer1,
+        answer2: +this.state.answer2,
+        answer3: +this.state.answer3,
+        answer4: +this.state.answer4,
+        answer5: +this.state.answer5,
+        answer6: +this.state.answer6,
+        answer7: +this.state.answer7,
+        answer8: +this.state.answer8,
+        answer9: +this.state.answer9,
+        answer10: +this.state.answer10
+      }
+    })
   }
   render() {
     return(
@@ -291,9 +309,10 @@ export default class Question extends React.Component {
                 />
               </RadioButton.Group>
               <Badge
-                onPress={() => Alert.alert(
-                  '提交成功',
-                )}
+                // onPress={() => Alert.alert(
+                //   '提交成功',
+                // )}
+                onPress={this.handleSubmit}
                 value='提交'
                 containerStyle={{
                   backgroundColor: Colors.primary,
@@ -320,3 +339,5 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   }
 });
+
+export default connect(({ question }) => ({ ...question}))(Question);
