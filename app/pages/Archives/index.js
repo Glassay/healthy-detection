@@ -9,6 +9,7 @@ import {
   Card
 } from 'react-native-elements';
 import { connect } from 'dva';
+import moment from 'moment';
 
 import FontsSize from '../../res/fonts/size';
 import FontsWeight from '../../res/fonts/weight';
@@ -54,7 +55,7 @@ class Archives extends React.Component {
         keyExtractor={this._keyExtractor}
         data={healthInfo}
         renderItem={({ item }) => (
-          <Card title={item.Created}>
+          <Card title={moment(item.Created).format('LL')}>
             <Text style={styles.grade}>{item.score}分</Text>
             <Text style={styles.content}>{item.result}</Text>
           </Card>
